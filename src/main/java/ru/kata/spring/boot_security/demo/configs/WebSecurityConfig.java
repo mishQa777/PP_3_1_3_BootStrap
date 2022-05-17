@@ -27,8 +27,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/admin**", "/index", "/user").hasRole("ADMIN")
-                .antMatchers("/user").hasRole("USER")
+                .antMatchers("/admin**").hasRole("ADMIN")
+                .antMatchers("/user**").hasAnyRole("ADMIN","USER")
                 .antMatchers("/login").permitAll()//имеют доступ все
                 .anyRequest().authenticated()
                 .and()
@@ -48,6 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 }
+
 
 //    // аутентификация inMemory
 //    @Bean
